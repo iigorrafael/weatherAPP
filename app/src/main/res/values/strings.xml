@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="app_label">Weather</string>
+    <string name="search_hint">Pesquisar</string>
+    <string name="search">Pesquisar</string>
+    <string name="title_activity_previsoes">Previsões</string>
+    <string name="action_settings">Opções</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_cadastrar_cidade">Adicionar Nova Cidade</string>
+    <string name="action_opcoes">Opções</string>
+    <string name="action_trash">Excluir</string>
+    <string name="action_search">Buscar</string>
+</resources>
