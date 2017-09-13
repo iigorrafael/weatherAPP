@@ -58,8 +58,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         myFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // METODO PARA ADICIONAR CIDADES
-//                startActivity(new Intent(MainActivity.this, CadastrarCidade.class));
-                startActivity(new Intent(MainActivity.this, PesquisarCidade.class));
+                startActivity(new Intent(MainActivity.this, CadastrarCidade.class));
+//                startActivity(new Intent(MainActivity.this, PesquisarCidade.class));
             }
         });
 

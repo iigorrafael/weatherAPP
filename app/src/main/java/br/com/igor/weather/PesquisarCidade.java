@@ -41,24 +41,25 @@ public class PesquisarCidade extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.search_layout);
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.menu_layout);
 
-        Bundle b = getIntent().getExtras();
-        String value = null; // or other values
-        if(b != null)
-            value = b.getString("key");
-        api.execute(value);
-
         imageView = (ImageView) findViewById(R.id.imageViewBackground);
-//        imageView.setImageResource(backgroundImage);
+        imageView.setImageResource(backgroundImage);
         textView = (TextView) findViewById(R.id.textViewCidade);
         temperatura = (TextView) findViewById(R.id.temperaturaPesquisa);
         hora = (TextView) findViewById(R.id.horaPesquisa);
         descricao = (TextView) findViewById(R.id.descricaoPesquisa);
         imagem = (ImageView) findViewById(R.id.imageViewTempoPesquisa);
 
+        Bundle b = getIntent().getExtras();
+        String value = null; // or other values
+        if (b != null)
+            value = b.getString("key");
+        Log.i("LOL", value);
+        api.execute(value);
     }
 
     @Override
@@ -70,14 +71,12 @@ public class PesquisarCidade extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                api.execute(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Log.i("LOL", newText);
-                api.execute(newText);
-
                 return false;
             }
         });
@@ -93,13 +92,16 @@ public class PesquisarCidade extends AppCompatActivity {
 
             try {
                 String line, newjson = "";
-                URL endereco = new URL("https://api.hgbrasil.com/weather/?format=json&city_name=" + nome + "&key=3f0e0e0e");
+                Log.i("LOL", nome[0]);
+                URL endereco = new URL("https://api.hgbrasil.com/weather/?format=json&city_name=" + nome[0] + "&key=3f0e0e0e");
+                Log.i("LOL", endereco.toString());
                 BufferedReader reader = new BufferedReader(new InputStreamReader(endereco.openStream(), "UTF-8"));
                 while ((line = reader.readLine()) != null) {
                     newjson += line;
                 }
                 Gson gson = new Gson();
                 retorno = gson.fromJson(newjson, Result.class);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -109,43 +111,45 @@ public class PesquisarCidade extends AppCompatActivity {
         @Override
         protected void onPostExecute(Result result) {
             super.onPostExecute(result);
+            setContentView(R.layout.search_layout);
 
-                    try {
-                        Log.i("LOL", retorno.getResults().getTime());
-                        Log.i("LOL", retorno.getResults().getCity());
-                        textView.setText(retorno.getResults().getCity_name());
-                        temperatura.setText(retorno.getResults().getTemp().toString() + "ºC");
-                        descricao.setText(retorno.getResults().getDescription());
-                        hora.setText("Atualizado às: " + retorno.getResults().getTime());
-                        Log.i("LOL", retorno.getResults().getCondition_slug());
-                        if (retorno.getResults().getCondition_slug().equals("clear_day")) {
-                            imagem.setImageResource(R.drawable.clear_day);
-                        }
-                        if (retorno.getResults().getCondition_slug().equals("clear_night")) {
-                            imagem.setImageResource(R.drawable.clear_night);
-                        }
-                        if (retorno.getResults().getCondition_slug().equals("cloud")) {
-                            imagem.setImageResource(R.drawable.cloud);
-                        }
-                        if (retorno.getResults().getCondition_slug().equals("cloudly_night")) {
-                            imagem.setImageResource(R.drawable.cloudly_night);
-                        }
-                        if (retorno.getResults().getCondition_slug().equals("cloudly_night")) {
-                            imagem.setImageResource(R.drawable.cloudly_night);
-                        }
-                        if (retorno.getResults().getCondition_slug().equals("rain")) {
-                            imagem.setImageResource(R.drawable.rain);
-                        } else if (retorno.getResults().getCondition_slug().equals("storm")) {
-                            imagem.setImageResource(R.drawable.storm);
-                        } else {
-                            Log.i("LOL", "else");
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Log.i("LOL", e.toString());
-                    }
+            try {
+                Log.i("LOL", retorno.getResults().getTime());
+                Log.i("LOL", retorno.getResults().getCity());
+                Log.i("LOL", retorno.getResults().getCurrently());
+                textView.setText(retorno.getResults().getCity_name());
+                temperatura.setText(retorno.getResults().getTemp().toString() + "ºC");
+                descricao.setText(retorno.getResults().getDescription());
+                hora.setText("Atualizado às: " + retorno.getResults().getTime());
+                Log.i("LOL", retorno.getResults().getCondition_slug());
+                if (retorno.getResults().getCondition_slug().equals("clear_day")) {
+                    imagem.setImageResource(R.drawable.clear_day);
                 }
+                if (retorno.getResults().getCondition_slug().equals("clear_night")) {
+                    imagem.setImageResource(R.drawable.clear_night);
+                }
+                if (retorno.getResults().getCondition_slug().equals("cloud")) {
+                    imagem.setImageResource(R.drawable.cloud);
+                }
+                if (retorno.getResults().getCondition_slug().equals("cloudly_night")) {
+                    imagem.setImageResource(R.drawable.cloudly_night);
+                }
+                if (retorno.getResults().getCondition_slug().equals("cloudly_night")) {
+                    imagem.setImageResource(R.drawable.cloudly_night);
+                }
+                if (retorno.getResults().getCondition_slug().equals("rain")) {
+                    imagem.setImageResource(R.drawable.rain);
+                } else if (retorno.getResults().getCondition_slug().equals("storm")) {
+                    imagem.setImageResource(R.drawable.storm);
+                } else {
+                    Log.i("LOL", "else");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.i("LOL", e.toString());
+            }
         }
     }
+}
 
 
