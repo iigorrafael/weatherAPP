@@ -26,7 +26,7 @@ import br.com.igor.weather.model.Result;
 
 public class PesquisarCidade extends AppCompatActivity {
 
-    private PrevisaoAPI api = new PrevisaoAPI();
+    private PrevisaoAPI api;
     private Result retorno = null;
     private Integer backgroundImage = R.drawable.verde;
     ImageView imageView;
@@ -59,6 +59,7 @@ public class PesquisarCidade extends AppCompatActivity {
         if (b != null)
             value = b.getString("key");
         Log.i("LOL", value);
+        api = new PrevisaoAPI();
         api.execute(value);
     }
 
@@ -71,6 +72,7 @@ public class PesquisarCidade extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                api = new PrevisaoAPI();
                 api.execute(query);
                 return false;
             }
@@ -111,8 +113,6 @@ public class PesquisarCidade extends AppCompatActivity {
         @Override
         protected void onPostExecute(Result result) {
             super.onPostExecute(result);
-            setContentView(R.layout.search_layout);
-
             try {
                 Log.i("LOL", retorno.getResults().getTime());
                 Log.i("LOL", retorno.getResults().getCity());

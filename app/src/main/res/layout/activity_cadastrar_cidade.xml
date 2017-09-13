@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="Cidade"
         android:inputType="textPersonName"
@@ -22,12 +23,16 @@
 
     <Button
         android:id="@+id/btnCadastrarCidade"
-        android:onClick="CadastrarCidade"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextCadastrarCidade"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:text="Cadastrar" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/colorPrimaryDark"
+        android:elevation="10dp"
+        android:layout_marginBottom="1dp"
+        android:onClick="CadastrarCidade"
+        android:text="Cadastrar"
+        android:textColor="#FFFFFF" />
 
 </RelativeLayout>
