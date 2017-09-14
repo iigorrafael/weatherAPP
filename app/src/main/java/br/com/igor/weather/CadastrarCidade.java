@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.orm.SugarContext;
+
 import br.com.igor.weather.model.Cidade;
 
 public class CadastrarCidade extends AppCompatActivity {
@@ -14,6 +16,7 @@ public class CadastrarCidade extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastrar_cidade);
+        SugarContext.init(this);
     }
 
     public void CadastrarCidade(View view){
@@ -26,6 +29,12 @@ public class CadastrarCidade extends AppCompatActivity {
         Toast.makeText(this,nomeCidade,Toast.LENGTH_SHORT).show();
         finish();
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SugarContext.terminate();
     }
 
 }

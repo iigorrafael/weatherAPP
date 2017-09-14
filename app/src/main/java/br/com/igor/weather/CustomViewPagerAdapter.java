@@ -1,10 +1,5 @@
 package br.com.igor.weather;
 
-import static br.com.igor.weather.Constants.FIRST_COLUMN;
-import static br.com.igor.weather.Constants.SECOND_COLUMN;
-import static br.com.igor.weather.Constants.THIRD_COLUMN;
-import static br.com.igor.weather.Constants.FOURTH_COLUMN;
-
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -121,51 +116,6 @@ public class CustomViewPagerAdapter extends PagerAdapter {
         ViewPager vp = (ViewPager) container;
         vp.addView(view, 0);
         return view;
-    }
-
-    private void preencheHashMap(int position){
-
-        list = new ArrayList<HashMap<String,String>>();
-
-        HashMap<String,String> temp=new HashMap<String, String>();
-        temp.put(FIRST_COLUMN, cidades[position].getCondicaoDia1().getWeekday());
-        temp.put(SECOND_COLUMN, cidades[position].getCondicaoDia1().getMin());
-        temp.put(THIRD_COLUMN, cidades[position].getCondicaoDia1().getMax());
-        temp.put(FOURTH_COLUMN, cidades[position].getCondicaoDia1().getDescription());
-        list.add(temp);
-
-        HashMap<String,String> temp2=new HashMap<String, String>();
-        temp2.put(FIRST_COLUMN, cidades[position].getCondicaoDia2().getWeekday());
-        temp2.put(SECOND_COLUMN, cidades[position].getCondicaoDia2().getMin());
-        temp2.put(THIRD_COLUMN, cidades[position].getCondicaoDia2().getMax());
-        temp2.put(FOURTH_COLUMN, cidades[position].getCondicaoDia2().getDescription());
-        list.add(temp2);
-
-        HashMap<String,String> temp3=new HashMap<String, String>();
-        temp3.put(FIRST_COLUMN, cidades[position].getCondicaoDia3().getWeekday());
-        temp3.put(SECOND_COLUMN, cidades[position].getCondicaoDia3().getMin());
-        temp3.put(THIRD_COLUMN, cidades[position].getCondicaoDia3().getMax());
-        temp3.put(FOURTH_COLUMN, cidades[position].getCondicaoDia3().getDescription());
-        list.add(temp3);
-
-        HashMap<String,String> temp4=new HashMap<String, String>();
-        temp4.put(FIRST_COLUMN, cidades[position].getCondicaoDia4().getWeekday());
-        temp4.put(SECOND_COLUMN, cidades[position].getCondicaoDia4().getMin());
-        temp4.put(THIRD_COLUMN, cidades[position].getCondicaoDia4().getMax());
-        temp4.put(FOURTH_COLUMN, cidades[position].getCondicaoDia4().getDescription());
-        list.add(temp4);
-
-        HashMap<String,String> temp5=new HashMap<String, String>();
-        temp5.put(FIRST_COLUMN, cidades[position].getCondicaoDia5().getWeekday());
-        temp5.put(SECOND_COLUMN, cidades[position].getCondicaoDia5().getMin());
-        temp5.put(THIRD_COLUMN, cidades[position].getCondicaoDia5().getMax());
-        temp5.put(FOURTH_COLUMN, cidades[position].getCondicaoDia5().getDescription());
-        list.add(temp5);
-
-
-        ListViewAdapter adapter = new ListViewAdapter(list);
-        listaForecast.setAdapter(adapter);
-
     }
 
     public int getItemPosition(Object object) {
