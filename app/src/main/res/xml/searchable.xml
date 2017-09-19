@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <searchable xmlns:android="http://schemas.android.com/apk/res/android"
+    android:hint="@string/search_hint"
     android:label="@string/app_label"
-    android:hint="@string/search_hint" >
-</searchable>
+    android:searchMode="queryRewriteFromText"
+    android:searchSettingsDescription="string resource"
+    android:searchSuggestSelection=" ?"
+    android:searchSuggestThreshold="2"
+    android:textColorHint="#FFFFFF"
+    android:searchSuggestIntentAction="android.intent.action.SEARCH"/>

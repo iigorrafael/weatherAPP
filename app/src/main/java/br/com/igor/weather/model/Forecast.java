@@ -1,7 +1,9 @@
 package br.com.igor.weather.model;
 
 
-public class CondicaoDia {
+import com.orm.SugarRecord;
+
+public class Forecast extends SugarRecord{
 
     private String date;
     private String weekday;
@@ -9,6 +11,18 @@ public class CondicaoDia {
     private String min;
     private String description;
     private String condition;
+
+    public Forecast() {
+    }
+
+    public Forecast(String date, String weekday, String max, String min, String description, String condition) {
+        this.date = date;
+        this.weekday = weekday;
+        this.max = max;
+        this.min = min;
+        this.description = description;
+        this.condition = condition;
+    }
 
     public String getDate() {
         return date;

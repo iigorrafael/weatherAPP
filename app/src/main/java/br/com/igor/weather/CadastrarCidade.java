@@ -23,7 +23,7 @@ public class CadastrarCidade extends AppCompatActivity {
         EditText editTextCidade = (EditText) findViewById(R.id.editTextCadastrarCidade);
         String nomeCidade = editTextCidade.getText().toString();
 
-        Cidade cidade = new Cidade(nomeCidade, null,null, null, null,null,null,null,null,null,null,null,null);
+        Cidade cidade = new Cidade(nomeCidade, null,null, null, null,null,null,null,null,null,null,null,null,null,null,null,null);
         cidade.save();
 
         Toast.makeText(this,nomeCidade,Toast.LENGTH_SHORT).show();
@@ -34,7 +34,6 @@ public class CadastrarCidade extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SugarContext.terminate();
     }
 
 }

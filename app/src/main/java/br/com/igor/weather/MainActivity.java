@@ -49,11 +49,11 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.menu_layout);
 
-        gps = new GPSlocal(getApplicationContext());
-        l = gps.getLocation();
-        if(l != null){
-           Log.i("LOL", String.valueOf(l.getLatitude()));
-        }
+//        gps = new GPSlocal(getApplicationContext());
+//        l = gps.getLocation();
+//        if(l != null){
+//           Log.i("LOL", String.valueOf(l.getLatitude()));
+//        }
 
         SugarContext.init(this);
         buscaPorCidade();
@@ -135,15 +135,15 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     private void buscaPorCidade() {
         Log.i("LOL", "START BUSCA");
-        PrevisaoAPIGPS gps = new PrevisaoAPIGPS();
+//        PrevisaoAPIGPS gps = new PrevisaoAPIGPS();
         PrevisaoAPI previsao = new PrevisaoAPI();
         try {
-            Cidade[] cidadesBD = (Cidade[]) Cidade.listAll(Cidade.class).toArray(new Cidade[0]);
-            gps.execute();
+            cidadesBD = (Cidade[]) Cidade.listAll(Cidade.class).toArray(new Cidade[0]);
+//            gps.execute();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (cidades != null) {
+        if (cidadesBD != null) {
             previsao.execute();
         }
 
@@ -152,6 +152,10 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
 
     private void atualizarView() {
+        if(cidadesBD == null){
+            Intent intent = new Intent(this, CadastrarCidade.class);
+            startActivity(intent);
+        }
         buscaPorCidade();
         viewPager.setAdapter(adapter);
 
@@ -159,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     public void deleteCidade() {
         try {
-            cidades[viewPager.getCurrentItem()].delete();
+            cidadesBD[viewPager.getCurrentItem()].delete();
             atualizarView();
         } catch (Exception e) {
             e.printStackTrace();
@@ -244,25 +248,36 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         private static final String TAG = "PrevisaoAPI ";
 
         protected Result doInBackground(String... urls) {
-            for (int i = 1; i < cidades.length; i++) {
-                Log.i("LOL", "https://api.hgbrasil.com/weather/?format=json&city_name=" + cidades[i].getNome() + "&key=3f0e0e0e");
+            for (int i = 0; i < cidadesBD.length; i++) {
+                String value = cidadesBD[i].getNome().replaceAll("\\s+", "");
+                Log.i("LOL", "https://api.hgbrasil.com/weather/?format=json&city_name=" + value + "&key=3f0e0e0e");
                 try {
                     String line, newjson = "";
-                    URL endereco = new URL("https://api.hgbrasil.com/weather/?format=json&city_name=" + cidades[i].getNome() + "&key=3f0e0e0e");
+                    URL endereco = new URL("https://api.hgbrasil.com/weather/?format=json&city_name=" + value + "&key=3f0e0e0e");
                     BufferedReader reader = new BufferedReader(new InputStreamReader(endereco.openStream(), "UTF-8"));
                     while ((line = reader.readLine()) != null) {
                         newjson += line;
                     }
                     Gson gson = new Gson();
                     retorno = gson.fromJson(newjson, Result.class);
-                    Log.i("LOL", retorno.getResults().getForecast().get(0).getWeekday());
-                    cidades[i].setTemp(retorno.getResults().getTemp());
-                    cidades[i].setTime(retorno.getResults().getTime());
-                    cidades[i].setCurrently(retorno.getResults().getCurrently());
-                    cidades[i].setDate(retorno.getResults().getDate());
-                    cidades[i].setDescription(retorno.getResults().getDescription());
-                    cidades[i].setCondition_slug(retorno.getResults().getCondition_slug());
-                    cidades[i].save();
+                    Log.i("LOL", retorno.getResults().getForecast().get(0).getDate());
+                    cidadesBD[i].setNome(retorno.getResults().getCity_name());
+                    cidadesBD[i].setTemp(retorno.getResults().getTemp());
+                    cidadesBD[i].setTime(retorno.getResults().getTime());
+                    cidadesBD[i].setCurrently(retorno.getResults().getCurrently());
+                    cidadesBD[i].setDate(retorno.getResults().getDate());
+                    cidadesBD[i].setDescription(retorno.getResults().getDescription());
+                    Log.i("LOL", "slug");
+                    cidadesBD[i].setCondition_slug(retorno.getResults().getCondition_slug());
+                    Log.i("LOL", "1");
+                    cidadesBD[i].setCondicaoDia1(retorno.getResults().getForecast().get(0));
+                    Log.i("LOL", "2");
+                    cidadesBD[i].setCondicaoDia2(retorno.getResults().getForecast().get(1));
+                    Log.i("LOL", "3");
+                    cidadesBD[i].setCondicaoDia3(retorno.getResults().getForecast().get(2));
+                    cidadesBD[i].setCondicaoDia4(retorno.getResults().getForecast().get(3));
+                    cidadesBD[i].setCondicaoDia5(retorno.getResults().getForecast().get(4));
+                    cidadesBD[i].save();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -281,47 +296,48 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
 
     //** CLASSE DO ASYNCTAKS QUE IRÀ BUSCAR OS DADOS DA API***
-    public class PrevisaoAPIGPS extends AsyncTask<String, Integer, Result> {
-
-        private static final String TAG = "PrevisaoAPI ";
-
-        protected Result doInBackground(String... urls) {
-                try {
-                    String line, newjson = "";
-                    URL endereco = new URL("https://api.hgbrasil.com/weather/?format=json&lat="+l.getLatitude()+"&lon="+l.getLongitude()+"&key=3f0e0e0e");
-                    Log.i("LOL", "https://api.hgbrasil.com/weather/?format=json&lat="+l.getLatitude()+"&lon="+l.getLongitude()+"&key=3f0e0e0e");
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(endereco.openStream(), "UTF-8"));
-                    while ((line = reader.readLine()) != null) {
-                        newjson += line;
-                    }
-                    Gson gson = new Gson();
-                    retorno = gson.fromJson(newjson, Result.class);
-                    Log.i("LOL", retorno.getResults().getForecast().get(0).getWeekday());
-                    Cidade cid = new Cidade();
-                    cid.setNome(retorno.getResults().getCity());
-                    cid.setTemp(retorno.getResults().getTemp());
-                    cid.setTime(retorno.getResults().getTime());
-                    cid.setCurrently(retorno.getResults().getCurrently());
-                    cid.setDate(retorno.getResults().getDate());
-                    cid.setDescription(retorno.getResults().getDescription());
-                    cid.setCondition_slug(retorno.getResults().getCondition_slug());
-                    cidades[0] = cid;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            return retorno;
-        }
-
-        @Override
-        protected void onPostExecute(Result result) {
-            super.onPostExecute(result);
-            mSwipeRefreshLayout.setRefreshing(false);
-//            viewPagerAdapter.notifyDataSetChanged();
-//            viewPager.setAdapter(viewPagerAdapter);
-//            viewPager.setCurrentItem(position);
-        }
-    }
+//    public class PrevisaoAPIGPS extends AsyncTask<String, Integer, Result> {
+//
+//        private static final String TAG = "PrevisaoAPI ";
+//
+//        protected Result doInBackground(String... urls) {
+//                try {
+//                    Log.i("LOL", "https://api.hgbrasil.com/weather/?format=json&lat="+l.getLatitude()+"&lon="+l.getLongitude()+"&key=3f0e0e0e");
+//                    String line, newjson = "";
+//                    URL endereco = new URL("https://api.hgbrasil.com/weather/?format=json&lat="+l.getLatitude()+"&lon="+l.getLongitude()+"&key=3f0e0e0e");
+//                    Log.i("LOL", "https://api.hgbrasil.com/weather/?format=json&lat="+l.getLatitude()+"&lon="+l.getLongitude()+"&key=3f0e0e0e");
+//                    BufferedReader reader = new BufferedReader(new InputStreamReader(endereco.openStream(), "UTF-8"));
+//                    while ((line = reader.readLine()) != null) {
+//                        newjson += line;
+//                    }
+//                    Gson gson = new Gson();
+//                    retorno = gson.fromJson(newjson, Result.class);
+//                    Log.i("LOL", retorno.getResults().getForecast().get(0).getWeekday());
+//                    Cidade cid = new Cidade();
+//                    cid.setNome(retorno.getResults().getCity());
+//                    cid.setTemp(retorno.getResults().getTemp());
+//                    cid.setTime(retorno.getResults().getTime());
+//                    cid.setCurrently(retorno.getResults().getCurrently());
+//                    cid.setDate(retorno.getResults().getDate());
+//                    cid.setDescription(retorno.getResults().getDescription());
+//                    cid.setCondition_slug(retorno.getResults().getCondition_slug());
+//                    cidades[0] = cid;
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//
+//            return retorno;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Result result) {
+//            super.onPostExecute(result);
+//            mSwipeRefreshLayout.setRefreshing(false);
+////            viewPagerAdapter.notifyDataSetChanged();
+////            viewPager.setAdapter(viewPagerAdapter);
+////            viewPager.setCurrentItem(position);
+//        }
+//    }
 
 }
 

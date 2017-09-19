@@ -18,7 +18,7 @@ public class Previsao {
     private String sunset;
     private String condition_slug;
     private String city_name;
-    private List<CondicaoDia> forecast;
+    private List<Forecast> forecast;
 
 
     public Integer getTemp() {
@@ -133,11 +133,11 @@ public class Previsao {
         this.city_name = city_name;
     }
 
-    public List<CondicaoDia> getForecast() {
+    public List<Forecast> getForecast() {
         return forecast;
     }
 
-    public void setForecast(List<CondicaoDia> forecast) {
+    public void setForecast(List<Forecast> forecast) {
         this.forecast = forecast;
     }
 }
