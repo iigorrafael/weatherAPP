@@ -19,12 +19,15 @@ import android.view.View;
 
 import com.google.gson.Gson;
 import com.orm.SugarContext;
+import com.orm.SugarRecord;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.List;
 
 import br.com.igor.weather.model.Cidade;
+import br.com.igor.weather.model.Forecast;
 import br.com.igor.weather.model.Result;
 
 public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
@@ -139,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         PrevisaoAPI previsao = new PrevisaoAPI();
         try {
             cidadesBD = (Cidade[]) Cidade.listAll(Cidade.class).toArray(new Cidade[0]);
+            Log.i("LOL", cidadesBD[0].getCondition_slug());
 //            gps.execute();
         } catch (Exception e) {
             e.printStackTrace();
@@ -158,6 +162,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         }
         buscaPorCidade();
         viewPager.setAdapter(adapter);
+
 
     }
 
@@ -269,14 +274,26 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                     cidadesBD[i].setDescription(retorno.getResults().getDescription());
                     Log.i("LOL", "slug");
                     cidadesBD[i].setCondition_slug(retorno.getResults().getCondition_slug());
-                    Log.i("LOL", "1");
-                    cidadesBD[i].setCondicaoDia1(retorno.getResults().getForecast().get(0));
-                    Log.i("LOL", "2");
-                    cidadesBD[i].setCondicaoDia2(retorno.getResults().getForecast().get(1));
-                    Log.i("LOL", "3");
-                    cidadesBD[i].setCondicaoDia3(retorno.getResults().getForecast().get(2));
-                    cidadesBD[i].setCondicaoDia4(retorno.getResults().getForecast().get(3));
-                    cidadesBD[i].setCondicaoDia5(retorno.getResults().getForecast().get(4));
+                    Log.i("LOL", "list");
+                    cidadesBD[i].setMax1(retorno.getResults().getForecast().get(0).getMax());
+                    cidadesBD[i].setMax2(retorno.getResults().getForecast().get(1).getMax());
+                    cidadesBD[i].setMax3(retorno.getResults().getForecast().get(2).getMax());
+                    cidadesBD[i].setMax4(retorno.getResults().getForecast().get(3).getMax());
+                    cidadesBD[i].setMax5(retorno.getResults().getForecast().get(4).getMax());
+                    cidadesBD[i].setMin1(retorno.getResults().getForecast().get(0).getMin());
+                    cidadesBD[i].setMin2(retorno.getResults().getForecast().get(1).getMin());
+                    cidadesBD[i].setMin3(retorno.getResults().getForecast().get(2).getMin());
+                    cidadesBD[i].setMin4(retorno.getResults().getForecast().get(3).getMin());
+                    cidadesBD[i].setMin5(retorno.getResults().getForecast().get(4).getMin());
+                    cidadesBD[i].setWeekday1(retorno.getResults().getForecast().get(0).getWeekday());
+                    cidadesBD[i].setWeekday2(retorno.getResults().getForecast().get(1).getWeekday());
+                    cidadesBD[i].setWeekday3(retorno.getResults().getForecast().get(2).getWeekday());
+                    cidadesBD[i].setWeekday4(retorno.getResults().getForecast().get(3).getWeekday());
+                    cidadesBD[i].setWeekday5(retorno.getResults().getForecast().get(4).getWeekday());
+                    cidadesBD[i].setHumidity(retorno.getResults().getHumidity());
+                    cidadesBD[i].setSunrise(retorno.getResults().getSunrise());
+                    cidadesBD[i].setSunset(retorno.getResults().getSunset());
+                    cidadesBD[i].setWindSpeedy(retorno.getResults().getWind_speedy());
                     cidadesBD[i].save();
                 } catch (Exception e) {
                     e.printStackTrace();

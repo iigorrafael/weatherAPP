@@ -30,8 +30,8 @@
 
     <ImageView
         android:id="@+id/imageViewTempoPesquisa"
-        android:layout_width="500px"
-        android:layout_height="500px"
+        android:layout_width="400px"
+        android:layout_height="400px"
         android:layout_alignTop="@+id/textViewCidade"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -45,7 +45,6 @@
         android:textColor="#FFFFFF"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:layout_marginTop="70dp"
         android:layout_below="@+id/textViewCidade"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -56,8 +55,8 @@
         android:layout_height="wrap_content"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/temperaturaPesquisa"
+        android:layout_marginTop="13dp"
+        android:layout_below="@+id/imageViewTempoPesquisa"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -71,7 +70,7 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -86,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:text="Próximos Dias"
-
+                    android:textColor="#2196F3"
                     android:textAlignment="center"
                     android:textSize="24sp" />
 
@@ -230,20 +229,57 @@
 
                 </TableRow>
 
+                <TextView
+                    android:id="@+id/textViewSunrise"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|center_horizontal"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"/>
+
+                <TextView
+                    android:id="@+id/textViewSunset"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|center_horizontal"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:paddingBottom="10dp"/>
+
+                <TextView
+                    android:id="@+id/textViewHumidade"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|center_horizontal"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:paddingBottom="10dp"/>
+
+                <TextView
+                    android:id="@+id/textViewWind"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|center_horizontal"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:paddingBottom="10dp"/>
+
+                <TextView
+                    android:id="@+id/horaPesquisa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+
             </TableLayout>
 
         </LinearLayout>
 
     </ScrollView>
 
-    <TextView
-        android:id="@+id/horaPesquisa"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp" />
+
 
 </RelativeLayout>

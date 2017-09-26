@@ -63,6 +63,10 @@ public class PesquisarCidade extends AppCompatActivity {
     TextView min3;
     TextView min4;
     TextView min5;
+    TextView sunrise;
+    TextView sunset;
+    TextView humidity;
+    TextView wind;
     List<String> cidades;
     final List<String> suggestions = new ArrayList<>();
 
@@ -231,6 +235,11 @@ public class PesquisarCidade extends AppCompatActivity {
                 min3.setText(retorno.getResults().getForecast().get(2).getMin()+ "ºC");
                 min4.setText(retorno.getResults().getForecast().get(3).getMin()+ "ºC");
                 min5.setText(retorno.getResults().getForecast().get(4).getMin()+ "ºC");
+
+                wind.setText("Ventos: "+retorno.getResults().getWind_speedy());
+                humidity.setText("Humidade do ar: "+retorno.getResults().getHumidity()+"%");
+                sunrise.setText("Amanhecer: "+retorno.getResults().getSunrise());
+                sunset.setText("Por-do-sol"+retorno.getResults().getSunset());
 
                 Log.i("LOL", retorno.getResults().getCondition_slug());
                 if (retorno.getResults().getCondition_slug().equals("clear_day")) {

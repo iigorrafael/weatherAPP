@@ -28,13 +28,13 @@
 
     <ImageView
         android:id="@+id/imageViewTempo"
-        android:layout_width="500px"
-        android:layout_height="500px"
+        android:layout_width="400px"
+        android:layout_height="400px"
+        android:layout_marginRight="38dp"
+        android:layout_marginEnd="38dp"
         android:layout_below="@+id/textView"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="42dp"
-        android:layout_marginEnd="42dp" />
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:id="@+id/temperatura"
@@ -43,7 +43,7 @@
         android:textColor="#FFFFFF"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:layout_above="@+id/descricao"
+        android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -53,23 +53,13 @@
         android:layout_height="wrap_content"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
-        android:layout_alignBottom="@+id/imageViewTempo"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:id="@+id/periodo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:layout_marginTop="13dp"
-        android:layout_below="@+id/descricao"
+        android:layout_below="@+id/imageViewTempo"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <ScrollView
         android:layout_below="@+id/descricao"
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -78,7 +68,7 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -93,6 +83,7 @@
                     android:layout_height="wrap_content"
                     android:text="Próximos Dias"
                     android:textAlignment="center"
+                    android:textColor="#2196F3"
                     android:textSize="18sp" />
 
                 <TableRow>
@@ -235,38 +226,62 @@
 
                 </TableRow>
 
+                <TextView
+                    android:id="@+id/textViewSunrise"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/scrollView"
+                    android:gravity="center|center_horizontal"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"/>
+
+                <TextView
+                    android:id="@+id/textViewSunset"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|center_horizontal"
+                    android:layout_below="@+id/textViewSunrise"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:paddingBottom="10dp"/>
+
+                <TextView
+                    android:id="@+id/textViewHumidade"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|center_horizontal"
+                    android:layout_below="@+id/textViewSunset"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:paddingBottom="10dp"/>
+
+                <TextView
+                    android:id="@+id/textViewWind"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|center_horizontal"
+                    android:layout_below="@+id/textViewHumidade"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:paddingBottom="10dp"/>
+
+                <TextView
+                    android:id="@+id/hora"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+
             </TableLayout>
 
         </LinearLayout>
 
     </ScrollView>
 
-    <TextView
-        android:id="@+id/hora"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp" />
-
-    <!--<ImageButton-->
-        <!--android:id="@+id/btnDeleteCidade"-->
-        <!--android:layout_width="36dp"-->
-        <!--android:layout_height="39dp"-->
-        <!--android:layout_column="20"-->
-        <!--android:layout_row="0"-->
-        <!--android:background="@drawable/trash"-->
-        <!--android:onClick="deleteCidade"-->
-        <!--android:layout_marginRight="11dp"-->
-        <!--android:layout_marginEnd="11dp"-->
-        <!--android:layout_marginTop="13dp"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_alignParentEnd="true" />-->
 
 
-
-    <!--</LinearLayout>-->
 
 </RelativeLayout>

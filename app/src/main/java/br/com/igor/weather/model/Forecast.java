@@ -12,6 +12,7 @@ public class Forecast extends SugarRecord{
     private String description;
     private String condition;
 
+
     public Forecast() {
     }
 
@@ -71,4 +72,5 @@ public class Forecast extends SugarRecord{
     public void setCondition(String condition) {
         this.condition = condition;
     }
+
 }
