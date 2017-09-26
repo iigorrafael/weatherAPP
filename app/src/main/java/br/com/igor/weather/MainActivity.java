@@ -272,9 +272,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                     cidadesBD[i].setCurrently(retorno.getResults().getCurrently());
                     cidadesBD[i].setDate(retorno.getResults().getDate());
                     cidadesBD[i].setDescription(retorno.getResults().getDescription());
-                    Log.i("LOL", "slug");
                     cidadesBD[i].setCondition_slug(retorno.getResults().getCondition_slug());
-                    Log.i("LOL", "list");
                     cidadesBD[i].setMax1(retorno.getResults().getForecast().get(0).getMax());
                     cidadesBD[i].setMax2(retorno.getResults().getForecast().get(1).getMax());
                     cidadesBD[i].setMax3(retorno.getResults().getForecast().get(2).getMax());

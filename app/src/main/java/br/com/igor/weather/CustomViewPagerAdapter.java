@@ -171,12 +171,8 @@ public class CustomViewPagerAdapter extends PagerAdapter {
                 }
                 if (cidade.getCondition_slug().equals("storm")) {
                     imagem.setImageResource(R.drawable.storm);
-                } else {
-                    imagem.setImageResource(R.drawable.clear_day);
-                    Log.i("LOL", "else");
                 }
             }
-            ;
         } catch (Exception e) {
             Log.i("LOL", e.toString());
         }
